@@ -1,25 +1,28 @@
 import KnowledgeChunk from "../models/KnowledgeChunk.js";
 
-const GROQ_API_KEY = process.env.GROQ_API_KEY;
+const COHERE_API_KEY = process.env.COHERE_API_KEY;
 
 export async function generateEmbedding(text) {
-    const response = await fetch("https://api.groq.com/openai/v1/embeddings", {
+    const response = await fetch("https://api.cohere.com/v1/embed", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${GROQ_API_KEY}`
+            "Authorization": `Bearer ${COHERE_API_KEY}`
         },
         body: JSON.stringify({
-            model: "nomic-embed-text-v1_5",
-            input: text
+            texts: [text],
+            model: "embed-english-v3.0",
+            input_type: "search_query"
         }),
     });
+
     if (!response.ok) {
         const err = await response.text();
-        throw new Error(`Groq embedding failed: ${err}`);
+        throw new Error(`Cohere embedding failed: ${err}`);
     }
+
     const data = await response.json();
-    return data.data[0].embedding;
+    return data.embeddings[0];
 }
 
 export function chunkText(text, chunkSize = 500, overlap = 100) {
