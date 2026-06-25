@@ -1,27 +1,25 @@
 import KnowledgeChunk from "../models/KnowledgeChunk.js";
 
-const HF_API_KEY = process.env.HF_API_KEY;
-const EMBED_MODEL = "sentence-transformers/all-MiniLM-L6-v2";
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
 export async function generateEmbedding(text) {
-    const response = await fetch(
-        `https://api-inference.huggingface.co/pipeline/feature-extraction/${EMBED_MODEL}`,
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${HF_API_KEY}`
-            },
-            body: JSON.stringify({ inputs: text, options: { wait_for_model: true } }),
-        }
-    );
-
+    const response = await fetch("https://api.groq.com/openai/v1/embeddings", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${GROQ_API_KEY}`
+        },
+        body: JSON.stringify({
+            model: "nomic-embed-text-v1_5",
+            input: text
+        }),
+    });
     if (!response.ok) {
-        throw new Error(`HuggingFace embedding failed: ${response.statusText}`);
+        const err = await response.text();
+        throw new Error(`Groq embedding failed: ${err}`);
     }
-
     const data = await response.json();
-    return data;
+    return data.data[0].embedding;
 }
 
 export function chunkText(text, chunkSize = 500, overlap = 100) {
