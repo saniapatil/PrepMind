@@ -2,10 +2,6 @@ import dotenv from "dotenv";
 dotenv.config();
 const getOpenAIAPIResponse = async (message, contextChunks = []) => {
  
-    if (contextChunks.length === 0) {
-        return "I don't have information about that in my knowledge base. Try asking about DSA topics like arrays, linked lists, trees, or web dev topics like JavaScript, React, or CSS.";
-    }
- 
     const systemContent = `You are PrepMind, an interview prep assistant.
 Answer the user's question using ONLY the context provided below.
 If the context does not contain a clear answer, say "I don't have enough information on that topic in my knowledge base."

@@ -14,7 +14,7 @@ router.post("/chat", authMiddleware, async (req, res) => {
         });
     }
     try {
-        const relevantChunks =await retrieveRelevantChunks(message,topK);
+        const relevantChunks = [];
         let thread = await Thread.findOne({threadId,userId: req.user.userId});
         if (!thread) {
             thread = new Thread({userId: req.user.userId,threadId,title: message,messages: [
