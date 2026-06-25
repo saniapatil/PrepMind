@@ -1,0 +1,31 @@
+services:
+
+  backend:
+    build: ./backend
+    container_name: prepmind-backend
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: prepmind-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  grafana_data:

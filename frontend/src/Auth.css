@@ -1,0 +1,134 @@
+.authPage {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #212121;
+  padding: 20px;
+}
+
+.authCard {
+  width: 100%;
+  max-width: 380px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  padding: 28px;
+
+  background: #171717;
+  border: 1px solid #2f2f2f;
+  border-radius: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brandLogo {
+  width: 40px;
+  height: 40px;
+
+  border-radius: 10px;
+
+  display: grid;
+  place-items: center;
+
+  background: #ff7733;
+  color: white;
+}
+
+.brand h2 {
+  margin: 0;
+  color: white;
+}
+
+.title {
+  margin: 0;
+  color: white;
+}
+
+.subtitle {
+  margin: 0;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.input {
+  width: 100%;
+  padding: 12px;
+
+  border: 1px solid #333;
+  border-radius: 10px;
+
+  background: #252525;
+  color: white;
+
+  outline: none;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: #339cff;
+}
+
+.errorBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px;
+
+  border-radius: 8px;
+
+  background: rgba(255, 0, 0, 0.08);
+  border: 1px solid rgba(255, 0, 0, 0.2);
+
+  color: #ff8f8f;
+  font-size: 0.9rem;
+}
+
+.authBtn {
+  padding: 12px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #e99266;
+  color: white;
+
+  cursor: pointer;
+  font-weight: 600;
+
+  transition: .2s;
+}
+
+.authBtn:hover:not(:disabled) {
+  background: #d3784a;
+}
+
+.authBtn:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.switchText {
+  text-align: center;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.switchText span {
+  color: #e99266;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.switchText span:hover {
+  text-decoration: underline;
+}
